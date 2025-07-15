@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lightning Out Test</title>
+    <script 
+      src="https://rockisland.my.site.com/Status/lightning/lightning.out.js" 
+      crossorigin="anonymous">
+    </script>
+  </head>
+  <body>
+    <div id="lightning-out"></div>
+
+    <script>
+      console.log("Initializing Lightning Out...");
+
+      $Lightning.use("c:Host_Flow_Service_Request_App", 
+        function() {
+          console.log("Lightning Out App Loaded");
+          $Lightning.createComponent(
+            "c:helloWorld",
+            {},
+            "lightning-out",
+            function(cmp) {
+              console.log("Component created:", cmp);
+            }
+          );
+        },
+        "https://rockisland.my.site.com/Status"
+      );
+    </script>
+  </body>
+</html>
