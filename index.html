@@ -3,31 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <title>Lightning Out Test</title>
-    <script 
-      src="https://rockisland.my.site.com/Status/lightning/lightning.out.js" 
-      crossorigin="anonymous">
-    </script>
   </head>
   <body>
     <div id="lightning-out"></div>
 
     <script>
-      console.log("Initializing Lightning Out...");
+      console.log("Injecting Lightning Out JS...");
 
-      $Lightning.use("c:Host_Flow_Service_Request_App", 
-        function() {
-          console.log("Lightning Out App Loaded");
-          $Lightning.createComponent(
-            "c:helloWorld",
-            {},
-            "lightning-out",
-            function(cmp) {
-              console.log("Component created:", cmp);
-            }
-          );
-        },
-        "https://rockisland.my.site.com/Status"
-      );
+      const script = document.createElement("script");
+      script.src = "https://rockisland.my.site.com/Status/s/lightning/lightning.out.js";
+      script.crossOrigin = "anonymous";
+
+      script.onload = function () {
+        console.log("Lightning Out JS loaded.");
+
+        $Lightning.use("c:Host_Flow_Service_Request_App",
+          function () {
+            console.log("Lightning Out App Loaded");
+            $Lightning.createComponent(
+              "c:helloWorld",
+              {},
+              "lightning-out",
+              function (cmp) {
+                console.log("Component created:", cmp);
+              },
+              function (error) {
+                console.error("Component error:", error);
+              }
+            );
+          },
+          "https://rockisland.my.site.com/Status"
+        );
+      };
+
+      document.head.appendChild(script);
     </script>
   </body>
 </html>
+
